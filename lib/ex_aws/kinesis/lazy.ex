@@ -68,7 +68,10 @@ defmodule ExAws.Kinesis.Lazy do
               {each_req_fun.(records), {:quit, pid}}
           end
       end,
-      fn(pid) -> send pid, :quit end
+      fn
+        (pid)         -> send pid, :quit
+        ({ pid, _ } ) -> send pid, :quit
+      end
     )
 
   end
